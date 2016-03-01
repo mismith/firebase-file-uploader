@@ -5,11 +5,13 @@ class FirebaseImageUploader {
 		this.ref = ref;
 	}
 	upload(files, single = false) {
+		if ( ! files || ! files.length) return;
+
 		for(let i = 0; i < files.length; i++) {
 			let reader = new FileReader();
 			reader.onload = e => this.ref[single ? 'set' : 'push'](e.target.result);
 			reader.readAsDataURL(files[i]);
-			
+
 			if (single) break;
 		}
 	}
