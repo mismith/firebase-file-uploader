@@ -1,6 +1,6 @@
 {
   "name": "firebase-image-uploader",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Use HTML5/modern browsers to store image data processed client-side as base64-encoded data in Firebase",
   "main": "index.js",
   "scripts": {
