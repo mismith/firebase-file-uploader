@@ -13,6 +13,10 @@
     "start": "npm run watch & npm run serve"
   },
   "author": "Murray Smith <murray@mismith.info> (http://mismith.info)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mismith/firebase-image-uploader.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.5.1",
