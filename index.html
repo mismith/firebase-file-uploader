@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>FirebaseImageUploader</title>
+	<style>
+		main {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		main img {
+			max-height: 200px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Upload an image</h1>
+		<input type="file" accept="image/*" multiple />
+	</header>
+	<div>
+		<h1>Uploaded images (from Firebase)</h1>
+		<main></main>
+	</div>
+
+	<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+	<script src="dist/firebase-image-uploader.min.js"></script>
+	<script>
+		var ref = new Firebase('https://firebase-image-uploader.firebaseio-demo.com/images');
+		var firebaseImageUploader = new FirebaseImageUploader(ref);
+
+		document.querySelector('[type=file]').addEventListener('change', e => {
+			firebaseImageUploader.upload(this.files, ! this.multiple); 
+		});
+
+		// UI/fluff
+		var main = document.querySelector('main');
+		ref.on('value', function(snap) {
+			main.innerHTML = '';
+
+			var images = snap.val();
+			for(var i in images) {
+				var a = document.createElement('a'),
+					img = document.createElement('img');
+				a.href = img.src = images[i];
+				a.appendChild(img);
+				main.appendChild(a);
+			}
+		});
+	</script>
+</body>
+</html>

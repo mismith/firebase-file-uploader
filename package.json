@@ -1,0 +1,24 @@
+{
+  "name": "firebase-image-uploader",
+  "version": "0.1.1",
+  "description": "Use HTML5/modern browsers to store image data processed client-side as base64-encoded data in Firebase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "transpile": "babel index.js --out-file dist/firebase-image-uploader.js --presets es2015 --source-maps",
+    "minify": "uglifyjs dist/firebase-image-uploader.js --in-source-map dist/firebase-image-uploader.js.map --output dist/firebase-image-uploader.min.js --source-map dist/firebase-image-uploader.min.js.map",
+    "build": "npm run transpile && npm run minify",
+    "watch": "npm run build && onchange 'index.js' -- npm run build",
+    "serve": "browser-sync start --server --files '*.html,dist/**/*,assets/**/*' --no-ghost-mode --no-notify --no-ui",
+    "start": "npm run watch & npm run serve"
+  },
+  "author": "Murray Smith <murray@mismith.info> (http://mismith.info)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-preset-es2015": "^6.5.0",
+    "browser-sync": "^2.11.1",
+    "onchange": "^2.0.0",
+    "uglify-js": "^2.6.2"
+  }
+}
