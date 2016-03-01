@@ -8,6 +8,6 @@ Use HTML5/modern browsers to store image data processed client-side as base64-en
 	var ref = new Firebase(FB_URL + '/images');
 	var firebaseImageUploader = new FirebaseImageUploader(ref);
 
-	document.querySelector('[type=file]').addEventListener('change', e => {
+	document.querySelector('[type=file]').addEventListener('change', function () {
 		firebaseImageUploader.upload(this.files); 
 	});

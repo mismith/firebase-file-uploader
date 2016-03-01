@@ -20,6 +20,8 @@ var FirebaseImageUploader = function () {
 
 			var single = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
+			if (!files || !files.length) return;
+
 			for (var i = 0; i < files.length; i++) {
 				var reader = new FileReader();
 				reader.onload = function (e) {

@@ -30,7 +30,7 @@
 		var ref = new Firebase('https://firebase-image-uploader.firebaseio-demo.com/images');
 		var firebaseImageUploader = new FirebaseImageUploader(ref);
 
-		document.querySelector('[type=file]').addEventListener('change', e => {
+		document.querySelector('[type=file]').addEventListener('change', function () {
 			firebaseImageUploader.upload(this.files, ! this.multiple); 
 		});
 
