@@ -1,13 +1,13 @@
-# FirebaseImageUploader
+# FirebaseFileUploader
 
-Use HTML5/modern browsers to store image data processed client-side as base64-encoded data in Firebase
+Use HTML5/modern browsers to store file data processed client-side as base64-encoded data in Firebase
 
 
 ## Usage
 
-	var ref = new Firebase(FB_URL + '/images');
-	var firebaseImageUploader = new FirebaseImageUploader(ref);
+	var ref = new Firebase(FB_URL + '/files');
+	var firebaseFileUploader = new FirebaseFileUploader(ref);
 
 	document.querySelector('[type=file]').addEventListener('change', function () {
-		firebaseImageUploader.upload(this.files); 
+		firebaseFileUploader.upload(this.files); 
 	});

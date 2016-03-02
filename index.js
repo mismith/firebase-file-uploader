@@ -1,4 +1,4 @@
-class FirebaseImageUploader {
+class FirebaseFileUploader {
 	constructor(ref) {
 		if ( ! (ref instanceof Firebase)) throw new Error('Firebase reference required');
 

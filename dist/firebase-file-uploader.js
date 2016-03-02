@@ -4,16 +4,16 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var FirebaseImageUploader = function () {
-	function FirebaseImageUploader(ref) {
-		_classCallCheck(this, FirebaseImageUploader);
+var FirebaseFileUploader = function () {
+	function FirebaseFileUploader(ref) {
+		_classCallCheck(this, FirebaseFileUploader);
 
 		if (!(ref instanceof Firebase)) throw new Error('Firebase reference required');
 
 		this.ref = ref;
 	}
 
-	_createClass(FirebaseImageUploader, [{
+	_createClass(FirebaseFileUploader, [{
 		key: 'upload',
 		value: function upload(files) {
 			var _this = this;
@@ -34,7 +34,7 @@ var FirebaseImageUploader = function () {
 		}
 	}]);
 
-	return FirebaseImageUploader;
+	return FirebaseFileUploader;
 }();
 
-//# sourceMappingURL=firebase-image-uploader.js.map
+//# sourceMappingURL=firebase-file-uploader.js.map

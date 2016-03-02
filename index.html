@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>FirebaseImageUploader</title>
+	<title>FirebaseFileUploader</title>
 	<style>
 		main {
 			display: flex;
@@ -16,7 +16,7 @@
 </head>
 <body>
 	<header>
-		<h1>Upload an image</h1>
+		<h1>Upload a image</h1>
 		<input type="file" accept="image/*" multiple />
 	</header>
 	<div>
@@ -26,13 +26,13 @@
 	</div>
 
 	<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
-	<script src="dist/firebase-image-uploader.min.js"></script>
+	<script src="dist/firebase-file-uploader.min.js"></script>
 	<script>
-		var ref = new Firebase('https://firebase-image-uploader.firebaseio-demo.com/images');
-		var firebaseImageUploader = new FirebaseImageUploader(ref);
+		var ref = new Firebase('https://firebase-file-uploader.firebaseio-demo.com/images');
+		var firebaseFileUploader = new FirebaseFileUploader(ref);
 
 		document.querySelector('[type=file]').addEventListener('change', function () {
-			firebaseImageUploader.upload(this.files, ! this.multiple); 
+			firebaseFileUploader.upload(this.files, ! this.multiple); 
 		});
 
 		// UI/fluff
