@@ -16,7 +16,7 @@
 </head>
 <body>
 	<header>
-		<h1>Upload a image</h1>
+		<h1>Upload image(s)</h1>
 		<input type="file" accept="image/*" multiple />
 	</header>
 	<div>
@@ -29,10 +29,10 @@
 	<script src="dist/firebase-file-uploader.min.js"></script>
 	<script>
 		var ref = new Firebase('https://firebase-file-uploader.firebaseio-demo.com/images');
-		var firebaseFileUploader = new FirebaseFileUploader(ref);
+		var firebaseFileUploader = new FirebaseFileUploader();
 
-		document.querySelector('[type=file]').addEventListener('change', function () {
-			firebaseFileUploader.upload(this.files, ! this.multiple); 
+		document.querySelector('[type=file]').addEventListener('change', e => {
+			firebaseFileUploader.process(e.target.files, ref);
 		});
 
 		// UI/fluff
@@ -48,7 +48,7 @@
 					img = document.createElement('img');
 
 				// set urls
-				a.href = img.src = images[i];
+				a.href = img.src = images[i].src;
 
 				// right-click to delete
 				(function(i){
