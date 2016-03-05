@@ -39,14 +39,27 @@ var FirebaseFileUploader = function () {
 
 			return Promise.all(processed).then(function (files) {
 				if (ref) {
-					if (single) {
-						return ref.set(files[0] || null);
+					if (ref instanceof Firebase) {
+						if (single) {
+							return ref.set(files[0] || null);
+						} else {
+							var deferreds = [];
+							files.map(function (file) {
+								return deferreds.push(ref.push(file));
+							});
+							return Promise.all(deferreds);
+						}
 					} else {
-						var deferreds = [];
-						files.map(function (file) {
-							return deferreds.push(ref.push(file));
-						});
-						return Promise.all(deferreds);
+						if (single) {
+							for (var k in files[0]) {
+								ref[k] = files[0][k];
+							}return ref;
+						} else {
+							files.map(function (file) {
+								return ref.push(file);
+							});
+							return ref;
+						}
 					}
 				} else {
 					return files;

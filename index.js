@@ -21,12 +21,22 @@ class FirebaseFileUploader {
 
 		return Promise.all(processed).then(files => {
 			if (ref) {
-				if (single) {
-					return ref.set(files[0] || null);
+				if (ref instanceof Firebase) {
+					if (single) {
+						return ref.set(files[0] || null);
+					} else {
+						var deferreds = [];
+						files.map(file => deferreds.push(ref.push(file)));
+						return Promise.all(deferreds);
+					}
 				} else {
-					var deferreds = [];
-					files.map(file => deferreds.push(ref.push(file)));
-					return Promise.all(deferreds);
+					if (single) {
+						for(var k in files[0]) ref[k] = files[0][k];
+						return ref;
+					} else {
+						files.map(file => ref.push(file));
+						return ref;
+					}
 				}
 			} else {
 				return files;

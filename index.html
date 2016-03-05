@@ -32,7 +32,7 @@
 		var firebaseFileUploader = new FirebaseFileUploader();
 
 		document.querySelector('[type=file]').addEventListener('change', e => {
-			firebaseFileUploader.process(e.target.files, ref);
+			firebaseFileUploader.process(e.target.files, obj.image, !e.target.multiple);
 		});
 
 		// UI/fluff
