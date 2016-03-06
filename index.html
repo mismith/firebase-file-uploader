@@ -31,8 +31,13 @@
 		var ref = new Firebase('https://firebase-file-uploader.firebaseio-demo.com/images');
 		var firebaseFileUploader = new FirebaseFileUploader();
 
+		// file input
 		document.querySelector('[type=file]').addEventListener('change', e => {
-			firebaseFileUploader.process(e.target.files, obj.image, !e.target.multiple);
+			firebaseFileUploader.process(e.target.files, ref, !e.target.multiple);
+		});
+		// paste
+		document.addEventListener('paste', e => {
+			firebaseFileUploader.process(e.clipboardData.items, ref);
 		});
 
 		// UI/fluff

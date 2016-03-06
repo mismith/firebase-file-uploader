@@ -1,5 +1,7 @@
 "use strict";
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21,15 +23,29 @@ var FirebaseFileUploader = function () {
 			var _loop = function _loop(i) {
 				processed.push(new Promise(function (resolve) {
 					var reader = new FileReader();
-					reader.onload = function (e) {
-						resolve({
-							name: files[i].name,
-							size: files[i].size,
-							type: files[i].type,
-							src: e.target.result
-						});
-					};
-					reader.readAsDataURL(files[i]);
+					if (files[i] instanceof DataTransferItem) {
+						reader.onload = function (e) {
+							resolve({
+								src: e.target.result
+							});
+						};
+						var blob = files[i].getAsFile();
+						if (blob instanceof Blob) {
+							reader.readAsDataURL(blob);
+						} else {
+							// @TODO: error?
+						}
+					} else if (files[i] instanceof File) {
+							reader.onload = function (e) {
+								resolve({
+									name: files[i].name,
+									size: files[i].size,
+									type: files[i].type,
+									src: e.target.result
+								});
+							};
+							reader.readAsDataURL(files[i]);
+						}
 				}));
 			};
 
@@ -40,16 +56,26 @@ var FirebaseFileUploader = function () {
 			return Promise.all(processed).then(function (files) {
 				if (ref) {
 					if (ref instanceof Firebase) {
+						// firebase reference
 						if (single) {
-							return ref.set(files[0] || null);
-						} else {
-							var deferreds = [];
-							files.map(function (file) {
-								return deferreds.push(ref.push(file));
+							return ref.set(files[0] || null).then(function (snap) {
+								return files;
 							});
-							return Promise.all(deferreds);
+						} else {
+							var _ret2 = function () {
+								var deferreds = [];
+								files.map(function (file) {
+									return deferreds.push(ref.push(file));
+								});
+								return {
+									v: Promise.all(deferreds).then(files)
+								};
+							}();
+
+							if ((typeof _ret2 === "undefined" ? "undefined" : _typeof(_ret2)) === "object") return _ret2.v;
 						}
 					} else {
+						// object / array (i.e. for local/draft manipulation)
 						if (single) {
 							for (var k in files[0]) {
 								ref[k] = files[0][k];
