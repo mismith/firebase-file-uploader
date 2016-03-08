@@ -1,6 +1,6 @@
 {
   "name": "firebase-file-uploader",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Use HTML5/modern browsers to store file data processed client-side as base64-encoded data in Firebase",
   "main": "index.js",
   "scripts": {
