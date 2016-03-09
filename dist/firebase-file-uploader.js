@@ -96,5 +96,3 @@ var FirebaseFileUploader = function () {
 
 	return FirebaseFileUploader;
 }();
-
-//# sourceMappingURL=firebase-file-uploader.js.map

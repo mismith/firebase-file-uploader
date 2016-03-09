@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "transpile": "babel index.js --out-file dist/firebase-file-uploader.js --presets es2015 --source-maps",
-    "minify": "uglifyjs dist/firebase-file-uploader.js --in-source-map dist/firebase-file-uploader.js.map --output dist/firebase-file-uploader.min.js --source-map dist/firebase-file-uploader.min.js.map",
+    "transpile": "babel index.js --out-file dist/firebase-file-uploader.js --presets es2015",
+    "minify": "uglifyjs dist/firebase-file-uploader.js --output dist/firebase-file-uploader.min.js",
     "build": "npm run transpile && npm run minify",
     "watch": "npm run build && onchange 'index.js' -- npm run build",
     "serve": "browser-sync start --server --files '*.html,dist/**/*,assets/**/*' --no-ghost-mode --no-notify --no-ui",
